@@ -38,33 +38,15 @@ public class RepeatedString {
 		}
 		
 		long totalCount = (count*queo) + tempCount;
-		//System.out.println(totalCount);
+		
     	return totalCount;
     }
 
-    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
-        //BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
-
-        //String s = scanner.nextLine();
-
-        //long n = scanner.nextLong();
-        //scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-    	
-    	long test = 1000000000000L;
-    	
-    	int i = (int)test;
-    	System.out.println(test);
-    	System.out.println(i);
-
-        long result = repeatedString("aba", 100);
-
-        //bufferedWriter.write(String.valueOf(result));
-        //bufferedWriter.newLine();
-
-        //bufferedWriter.close();
-
-        scanner.close();
+        String s = "aba";
+        long n = 100;
+        long result = repeatedString(s, n);
+        System.out.println(result);
     }
 }
