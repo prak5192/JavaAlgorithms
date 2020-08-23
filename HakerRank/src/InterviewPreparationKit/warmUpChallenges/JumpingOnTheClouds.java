@@ -1,12 +1,7 @@
 package InterviewPreparationKit.warmUpChallenges;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+
 
 public class JumpingOnTheClouds {
 
@@ -41,7 +36,6 @@ public class JumpingOnTheClouds {
 
 
     public static void main(String[] args) throws IOException {
-        int n = 6;
         int[] c = {0, 0, 1, 0, 0, 1, 0};
 
         int result = jumpingOnClouds(c);
