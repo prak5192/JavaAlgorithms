@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CountTripletsApproach2 {
+public class CountTripletsApproach3 {
 	
 	 static long countTriplets(List<Long> arr, long r) {
 		 long countPairs = 0;
@@ -24,26 +24,51 @@ public class CountTripletsApproach2 {
 			 }
 		 }
 		 
-		 for(Long val : arr)
+		 for(Long temp: arr)
 		 {
-			 rightMap.put(val,rightMap.get(val) - 1);
-			 
-			 if(leftMap.containsKey(val/r) && val%r == 0 && rightMap.containsKey(val*r))
-			 {
-				 countPairs = countPairs + leftMap.get(val/r) * rightMap.get(val*r);
-			 }
-			 
-			 if(leftMap.containsKey(val)) {
-				 leftMap.put(val, leftMap.get(val) + 1);
-			 }else {
-				 leftMap.put(val, 1L);
-			 }
+			long leftCount = 0;
+			long rightCount = 0;
+			
+			long lhs = 0;
+			long rhs = temp * r;
+			if(temp % r == 0)
+			{
+				lhs = temp/r;
+			}
+			
+			
+			rightMap.put(temp,rightMap.get(temp) -1);
+			
+			if(rightMap.containsKey(rhs)) {
+				rightCount = rightMap.get(rhs);
+			}
+			
+			if(leftMap.containsKey(lhs)) {
+				leftCount = leftMap.get(lhs);
+			}
+
+			countPairs = countPairs + rightCount * leftCount;
+			insertMap(leftMap, temp);
+			
 		 }
 		 
 		 return countPairs;
 				 
 	 }
 	 
+	 private static void insertMap(Map<Long,Long> map, Long r)
+	 {
+		 if(map.containsKey(r))
+		 {
+			 map.put(r, map.get(r) + 1);
+		 }else {
+			 map.put(r, 1L);
+		 }
+	 }
+	
+	
+	
+	
 	
 	
 	public static void main(String args[])
