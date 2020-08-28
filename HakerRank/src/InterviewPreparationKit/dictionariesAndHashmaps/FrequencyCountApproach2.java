@@ -6,52 +6,56 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FrequencyCount {
+public class FrequencyCountApproach2 {
 
 
     // Complete the freqQuery function below.
     static List<Integer> freqQuery(List<List<Integer>> queries) {
-        List<Integer> result = new ArrayList<Integer>();
+		List<Integer> res = new ArrayList<>();
+		HashMap<Integer, Integer> map = new HashMap<>();
+		HashMap<Integer, Integer> fmap = new HashMap<>();
+		for (int i = 0; i < queries.size(); i++) {
+			if (queries.get(i).get(0) == 1) {
+				int freq = map.getOrDefault(queries.get(i).get(1), 0);
+				map.put(queries.get(i).get(1), map.getOrDefault(queries.get(i).get(1), 0) + 1);
+				if (freq != 0) {
+					if (fmap.get(freq) == 1)
+						fmap.remove(freq);
+					else
+						fmap.put(freq, fmap.get(freq) - 1);
+				}
+				fmap.put(freq + 1, fmap.getOrDefault(freq + 1, 0) + 1);
 
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+			}
+			if (queries.get(i).get(0) == 2) {
 
-		for (List<Integer> querie : queries) {
-			if (querie.size() == 2) {
-				int q = querie.get(0);
-				int val = querie.get(1);
-				if (q == 1) {
-					if (map.containsKey(val)) {
-						map.put(val, map.get(val) + 1);
-					} else {
-						map.put(val, 1);
-					}
+				if (map.containsKey(queries.get(i).get(1))) {
+					int freq = map.get(queries.get(i).get(1));
+					if (freq == 1)
+						map.remove(queries.get(i).get(1));
+					else
+						map.put(queries.get(i).get(1), map.get(queries.get(i).get(1)) - 1);
+					if (fmap.get(freq) == 1)
+						fmap.remove(freq);
+					else
+						fmap.put(freq, fmap.get(freq) - 1);
+					if (freq != 1)
+						fmap.put(freq - 1, fmap.getOrDefault(freq - 1, 0) + 1);
+				}
 
-				} else if (q == 2) {
-					if (map.containsKey(val)) {
-						map.put(val, map.get(val) - 1);
-					}
-				} else if (q == 3) {
-
-					Boolean flag = true;
-					for (Integer k : map.keySet()) {
-						if (map.get(k) == val) {
-							result.add(1);
-							flag = false;
-							break;
-						}
-					}
-					
-					if (flag) {
-						result.add(0);
-					}
+			}
+			if (queries.get(i).get(0) == 3) {
+				if (fmap.containsKey(queries.get(i).get(1)) && queries.get(i).get(1) != 0) {
+					res.add(1);
+				} else {
+					res.add(0);
 				}
 
 			}
 		}
-       
-        return result;
+		return res;
 
-    }
+	}
 
     public static void main(String[] args) {
 
